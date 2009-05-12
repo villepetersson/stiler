@@ -5,11 +5,10 @@ stiler.py is known to work with pekwm, openbox, metacity, and compiz.
 Requirements:
 
 wmctrl          - used to get the window and desktop information and manage the windows
-xdotools        - used to get the currently active window
 
-Usage: stiler.py OPTION
+Usage: stiler.py layout_option [flags]
 
-Standard options:
+Standard layout_options:
 simple          - The basic tiling layout . 1 Main + all other at the side.
 swap            - Will swap the active window to master column
 cycle           - Cycle all the windows in the master pane
@@ -18,7 +17,7 @@ horizontal 	    - Simple horizontal tiling
 maximize        - Maximize the active window/ for openbox which doesn't permit resizing of max windows
 max_all         - Maximize all windows
 
-Grid options:
+Grid layout_options:
 
 The following grid options mimic the functionality of compiz's grid plugin which in turn mimics the functionality of winsplit revolution.
 
@@ -33,7 +32,13 @@ bottom_right    - Place the active window in the bottom right corner of the scre
 
 Multiple calls to any of the grid options on the same active window will select different widths.
 
-On first run stiler will create a config file ~/.stilerrc. Modify the values to suit your window decorations/Desktop padding.
+On first run stiler will create a config file ~/.stilerrc. Modify the values to suit your window decorations/Desktop padding.  The two most influential values are the winborder and wintitle values.
+
+Flags:
+
+-v              - Enable INFO level verbosity
+-vv             - Enable DEBUG level verbosity
+-h              - Display usage information
 
 ~/.stilerrc file options:
 
@@ -50,16 +55,17 @@ wintitle        - pads the given number of pixels above each window
 miscellaneous options 
 
 tempfile        - cache file for holding window positions
+windowfilter    - exclude minimized and UTILITY windows from being tiled
 
 simple layout options:
 
 mwfactor        - width of the bigger window in the simple layout
-windowfilter    - exclude minimized and UTILITY windows from being tiled
 
 grid layout options:
 
 monitors        - for a dual monitor setup set this to 2
-gridwidths      - a list of grid widths to use for splitting the screen.  0.33 should always be in the list
+gridwidths      - a list of locations on the screen at which to place the borders of the grid.  Each location is mirrored across 1/2 the screen.  For example, a gridwidths list of 0.17,0.33,0.50 creates grid borders at 0.17,0.33,0.50,0.67,0.83
+widthadjustment - sometimes the gridwidths end up being rounded too high or low which can be common in a dual monitor setup.  Use the widthadjustment to account for rounding error.
 
 If you need other layouts modify get_simple_tile 
 
