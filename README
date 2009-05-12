@@ -29,6 +29,8 @@ middle          - Place the active window in the middle of the screen
 bottom_left     - Place the active window in the bottom left corner of the screen
 bottom          - Place the active window along the bottom of the screen
 bottom_right    - Place the active window in the bottom right corner of the screen
+swap_grid       - Swap the active window with the largest window
+
 
 Multiple calls to any of the grid options on the same active window will select different widths.
 
