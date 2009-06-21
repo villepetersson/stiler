@@ -25,7 +25,7 @@ import os
 import commands
 import pickle
 import ConfigParser
-import inspect
+import types
 import logging
 
 PROGRAM_NAME = "Simple Window Tiler"
@@ -609,24 +609,24 @@ def help_option():
     flag_list = []
     
     for key,value in globals().items():
-        if inspect.isfunction(value):
+        if type(value) == types.FunctionType:
             if key.endswith("_option"):
-                option_list.append((key.rsplit("_",1)[0],inspect.getdoc(value)))
+                option_list.append((key.rsplit("_",1)[0],value.__doc__))
             elif key.endswith("_flag"):
-                flag_list.append((key.rsplit("_",1)[0],inspect.getdoc(value)))
+                flag_list.append((key.rsplit("_",1)[0],value.__doc__))
 
     option_list.sort()
     flag_list.sort()
 
     print " Options:"
     for option,description in option_list:
-        print " %-16s - %s" % (option,description)
+        print " %-16s - %s" % (option,description.replace("\n"," "))
     
     print ""
     
     print " Flags:"
     for flag,description in flag_list:
-        print " -%-16s - %s" % (flag,description)    
+        print " -%-16s - %s" % (flag,description.replace("\n"," "))    
     
     print ""
     version_option()
@@ -636,7 +636,7 @@ def eval_function(function_string):
     Evaulate the given function.
     """
     for key,value in globals().items():
-        if key == function_string and inspect.isfunction(value):
+        if key == function_string and type(value) == types.FunctionType:
             value()
             return
         
