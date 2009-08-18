@@ -110,7 +110,7 @@ def is_valid_window(window):
         
         logging.debug("%s is type %s, state %s" % (window,window_type,window_state))
         
-        if window_type == "UTILITY" or window_type == "DESKTOP" or window_state == "Iconic" :
+        if window_type == "UTILITY" or window_type == "DESKTOP" or window_state == "Iconic" or window_type == "DOCK" :
             return False
             
     return True
