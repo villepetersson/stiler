@@ -212,6 +212,25 @@ def get_simple_tile(wincount):
 
     return layout
 
+def get_vsimple_tile(wincount):
+    cols = wincount - 1
+    layout = [] 
+    if cols == 0:
+        layout.append((OrigX,OrigY,MaxWidth,MaxHeight-WinTitle-WinBorder))
+        return layout
+    else:
+        layout.append((OrigX,OrigY,MaxWidth,int((MaxHeight-WinTitle-WinBorder)*MwFactor)))
+
+    y=OrigY + int((MaxHeight*MwFactor)+(2*WinBorder))
+    height=int((MaxHeight*(1-MwFactor))-2*(WinTitle-WinBorder))
+    width=int(MaxWidth/cols - WinBorder)
+
+    for n in range(0,cols):
+        x= OrigX+int((MaxWidth/cols)*(n))
+        layout.append((x,y,width,height))
+
+    return layout
+
 
 def get_vertical_tile(wincount):
     layout = [] 
@@ -495,8 +514,22 @@ def simple_option():
     for i in range(len(Windows)):
         if Windows[i] == activewin:
             Windows[0], Windows[i]=Windows[i], Windows[0]
-    
+
     arrange(get_simple_tile(len(Windows)),Windows)
+
+
+def vsimple_option():
+    """
+    Rotated version of the basic tiling layout . 1 Main + all other at the bottom.
+    """
+    Windows = create_win_list()
+
+    activewin = get_active_window()
+    for i in range(len(Windows)):
+        if Windows[i] == activewin:
+            Windows[0], Windows[i]=Windows[i], Windows[0]
+
+    arrange(get_vsimple_tile(len(Windows)),Windows)
 
 def swap_windows(window1,window2):
     """
