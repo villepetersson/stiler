@@ -490,6 +490,12 @@ def simple_option():
     The basic tiling layout . 1 Main + all other at the side.
     """
     Windows = create_win_list()
+
+    activewin = get_active_window()
+    for i in range(len(Windows)):
+        if Windows[i] == activewin:
+            Windows[0], Windows[i]=Windows[i], Windows[0]
+    
     arrange(get_simple_tile(len(Windows)),Windows)
 
 def swap_windows(window1,window2):
