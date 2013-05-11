@@ -516,6 +516,7 @@ def simple_option():
             Windows[0], Windows[i]=Windows[i], Windows[0]
 
     arrange(get_simple_tile(len(Windows)),Windows)
+    raise_window(activewin)
 
 
 def vsimple_option():
@@ -530,6 +531,7 @@ def vsimple_option():
             Windows[0], Windows[i]=Windows[i], Windows[0]
 
     arrange(get_vsimple_tile(len(Windows)),Windows)
+    raise_window(activewin)
 
 def swap_windows(window1,window2):
     """
